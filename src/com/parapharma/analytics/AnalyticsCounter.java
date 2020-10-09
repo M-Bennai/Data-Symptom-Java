@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class AnalyticsCounter {
 	/*private static int headacheCount = 0;	// initialize to 0
@@ -18,19 +19,18 @@ public class AnalyticsCounter {
 	public static void main(String args[]) throws Exception {
 		// first get input
 
+		ReadSymptomDataFromFile reader1 = new ReadSymptomDataFromFile("symptoms.txt");
+		reader1.GetSymptoms();
+		BufferedReader reader = new BufferedReader(new FileReader("symptoms.txt"));
 
-		Path path = Paths.get(System.getProperty("user.dir")).resolve("symptoms.txt");
-		BufferedReader reader = new BufferedReader(new FileReader(path.toFile()));
-
-		Map<String, Integer> frequency = new HashMap<>();
+		Map<String, Integer> frequency = new TreeMap<>();
 		String line = reader.readLine();
 
 		while (line != null) {
-			//System.out.println("processing ling " + line);
+
 
 			if (!line.trim().equals("")) {
 				String[] symptoms = line.split(" ");
-
 
 				for (String symptom : symptoms) {
 					if (symptom == null || symptom.trim().equals("")) {
@@ -43,20 +43,18 @@ public class AnalyticsCounter {
 					} else {
 						frequency.put(processed, 1);
 					}
+
 				}
 			}
 			line = reader.readLine();
 		}
-
-		System.out.println(frequency);
-		System.out.println("b");
-		FileWriter writer = new FileWriter ("result.out");
-		writer.write(String.valueOf(frequency));
+		System.out.println(reader + "\n");
+		FileWriter writer = new FileWriter ("result.out.");
+		writer.write(String.valueOf(frequency + "\n"));
 		writer.close();
-
-
-		}
 	}
+}
+
 
 		/*
 		int i = 0;	// test branch
